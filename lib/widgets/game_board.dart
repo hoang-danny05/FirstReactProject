@@ -1,9 +1,22 @@
+import 'package:connect_four/controllers/game_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'game_column.dart';
 
 class GameBoard extends StatelessWidget {
-  const GameBoard({super.key});
+  GameBoard({super.key});
+
+  final GameController controller = Get.find<GameController>();
+  //just like in unity
+
+  List<GameColumn> _buildBoard() {
+    return controller.board
+        .map((column) => GameColumn(
+              columnOfPieces: column,
+            ))
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +41,7 @@ class GameBoard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GameColumn(),
-              GameColumn(),
-              GameColumn(),
-              GameColumn(),
-              GameColumn(),
-              GameColumn(),
-              GameColumn(),
-            ],
-          ),
+          Row(mainAxisSize: MainAxisSize.min, children: _buildBoard()),
         ],
       ),
     );

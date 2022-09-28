@@ -10,7 +10,17 @@ class GameColumn extends StatelessWidget {
   final List<int> columnOfPieces;
 
   List<Cell> _buildColumn() {
-    return columnOfPieces.map((number) => Cell()).toList();
+    return columnOfPieces
+        .map((number) => number == 0
+            ? const Cell(
+                mode: cellMode.EMPTY,
+              )
+            : number == 1
+                ? const Cell(mode: cellMode.RED)
+                : const Cell(
+                    mode: cellMode.YELLOW,
+                  ))
+        .toList();
   }
 
   @override

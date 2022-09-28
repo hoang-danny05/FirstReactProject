@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'coin.dart';
 
@@ -6,7 +7,6 @@ enum cellMode { EMPTY, YELLOW, RED }
 
 class Cell extends StatelessWidget {
   final cellMode mode;
-
   const Cell({super.key, required this.mode});
 
   Coin _buildCoin() {

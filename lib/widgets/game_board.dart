@@ -11,9 +11,11 @@ class GameBoard extends StatelessWidget {
   //just like in unity
 
   List<GameColumn> _buildBoard() {
+    int currentColumnNumber = 0;
     return controller.board
         .map((column) => GameColumn(
               columnOfPieces: column,
+              columnNumber: currentColumnNumber++,
             ))
         .toList();
   }
@@ -41,7 +43,12 @@ class GameBoard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(mainAxisSize: MainAxisSize.min, children: _buildBoard()),
+          GetBuilder<GameController>(
+            builder: (GetxController controller) => Row(
+              mainAxisSize: MainAxisSize.min,
+              children: _buildBoard(),
+            ),
+          ),
         ],
       ),
     );

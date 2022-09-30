@@ -37,8 +37,59 @@ class GameController extends GetxController {
     if (selectedColumn.contains(0)) {
       final int rowIndex = selectedColumn.indexWhere((element) => element == 0);
       selectedColumn[rowIndex] = turnRed ? 1 : 2;
+      _checkWin(colNumber: columnNumber, rowNumber: rowIndex);
       _turnRed.value = !_turnRed.value;
       update();
+    }
+  }
+
+  _executeWin() {
+    print("The winner is ${turnRed ? 'Red' : 'Yellow'}!");
+    _buildBoard();
+  }
+
+  void _checkWin({required colNumber, required rowNumber}) {
+    int currentColor = turnRed ? 1 : 2;
+    //check horizontal wins
+    _checkHorizontals(colNumber, rowNumber, currentColor);
+    _checkVerticals(colNumber, rowNumber, currentColor);
+  }
+
+  void _checkVerticals(colNumber, rowNumber, currentColor) {
+    if (rowNumber < 3) {
+      return;
+    }
+    int longestVertical = 1;
+    for (int i = rowNumber - 1; i >= 0; i--) {
+      if (board[colNumber][i] == currentColor) {
+        longestVertical++;
+      } else {
+        break;
+      }
+    }
+    if (longestVertical >= 4) {
+      _executeWin();
+    }
+  }
+
+  void _checkHorizontals(colNumber, rowNumber, currentColor) {
+    int longestHorizontal = 1;
+    for (int i = colNumber + 1; i < 6; i++) {
+      if (board[i][rowNumber] == currentColor) {
+        longestHorizontal++;
+      } else {
+        break;
+      }
+    }
+    for (int i = colNumber - 1; i >= 0; i--) {
+      if (board[i][rowNumber] == currentColor) {
+        longestHorizontal++;
+      } else {
+        break;
+      }
+    }
+    if (longestHorizontal >= 4) {
+      _executeWin();
     }
   }
 }

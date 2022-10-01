@@ -1,5 +1,4 @@
 //import 'dart:ffi';
-
 import 'package:get/get.dart';
 
 //board has 7 colums and 6 rows.
@@ -43,12 +42,17 @@ class GameController extends GetxController {
     }
   }
 
+  bool mouseMode({required int colNumber}) {
+    //returns true if you can click, false if you cannot
+    return board[colNumber][5] == 2 || board[colNumber][5] == 1 ? false : true;
+  }
+
   _executeWin() {
     print("The winner is ${turnRed ? 'Red' : 'Yellow'}!");
     _buildBoard();
   }
 
-  void _checkWin({required colNumber, required rowNumber}) {
+  void _checkWin({required int colNumber, required int rowNumber}) {
     int currentColor = turnRed ? 1 : 2;
     //check horizontal wins
     _checkHorizontals(colNumber, rowNumber, currentColor);

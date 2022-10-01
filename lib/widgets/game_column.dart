@@ -27,13 +27,18 @@ class GameColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        controller.playColumn(columnNumber);
-      },
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: _buildColumn(),
+    return MouseRegion(
+      cursor: controller.mouseMode(colNumber: columnNumber)
+          ? SystemMouseCursors.click
+          : SystemMouseCursors.forbidden,
+      child: GestureDetector(
+        onTap: () {
+          controller.playColumn(columnNumber);
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: _buildColumn(),
+        ),
       ),
     );
   }

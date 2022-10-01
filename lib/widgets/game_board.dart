@@ -26,7 +26,7 @@ class GameBoard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),
           topRight: Radius.circular(10),
         ),

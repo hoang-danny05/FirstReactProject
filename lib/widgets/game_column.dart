@@ -10,24 +10,29 @@ class GameColumn extends StatelessWidget {
   final GameController controller = Get.find<GameController>();
   final List<int> columnOfPieces;
   final int columnNumber;
+  static const Map<int, cellMode> decodePieceNumber = {
+    0: cellMode.EMPTY,
+    1: cellMode.RED,
+    2: cellMode.YELLOW,
+    3: cellMode.LIGHT_RED,
+    4: cellMode.LIGHT_YELLOW,
+  };
 
   List<Cell> _buildColumn() {
     return columnOfPieces.reversed
-        .map((number) => number == 0
-            ? const Cell(
-                mode: cellMode.EMPTY,
-              )
-            : number == 1
-                ? const Cell(mode: cellMode.RED)
-                : const Cell(
-                    mode: cellMode.YELLOW,
-                  ))
+        .map((number) => Cell(mode: decodePieceNumber[number]!))
         .toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
+      onEnter: (event) {
+        controller.enterColumnHover(columnNumber);
+      },
+      onExit: (event) {
+        controller.leaveColumnHover(columnNumber);
+      },
       cursor: controller.mouseMode(colNumber: columnNumber)
           ? SystemMouseCursors.click
           : SystemMouseCursors.forbidden,

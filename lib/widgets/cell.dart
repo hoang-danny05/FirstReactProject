@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'coin.dart';
 
-enum cellMode { EMPTY, YELLOW, RED }
+enum cellMode { EMPTY, YELLOW, RED, LIGHT_YELLOW, LIGHT_RED }
 
 class Cell extends StatelessWidget {
   final cellMode mode;
@@ -14,13 +14,13 @@ class Cell extends StatelessWidget {
       case cellMode.YELLOW:
         return const Coin(pieceColor: Colors.yellow);
       case cellMode.RED:
-        return const Coin(
-          pieceColor: Colors.red,
-        );
+        return const Coin(pieceColor: Colors.red);
       case cellMode.EMPTY:
-        return const Coin(
-          pieceColor: Colors.white,
-        );
+        return const Coin(pieceColor: Colors.white);
+      case cellMode.LIGHT_YELLOW:
+        return Coin(pieceColor: Colors.yellow.shade200);
+      case cellMode.LIGHT_RED:
+        return Coin(pieceColor: Colors.red.shade200);
     }
   }
 
